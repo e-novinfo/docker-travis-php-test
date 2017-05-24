@@ -19,7 +19,7 @@ after_success:
 - bash <(curl -s https://codecov.io/bash)
 - if [ "$TRAVIS_BRANCH" == "master" ]; then docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
   docker tag $IMAGE_NAME $DOCKER_USERNAME/$DOCKER_REPOSITORY:$TRAVIS_BUILD_ID; docker push
-  $DOCKER_USERNAME/$DOCKER_REPOSITORY:$TRAVIS_TAG; fi
+  $DOCKER_USERNAME/$DOCKER_REPOSITORY:$TRAVIS_BUILD_ID; fi
 before_deploy: 'echo ''### Deployment starts ###'''
 deploy:
   provider: elasticbeanstalk

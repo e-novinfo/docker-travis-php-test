@@ -10,8 +10,8 @@ before_install:
 - sudo apt-get install -y python3.4
 - sudo apt-get install --upgrade -y python-pip
 - sudo pip install --user virtualenv
-- virtualenv -p /usr/bin/python3.4 ~/cli-ve
-- source ~/cli-ve/bin/activate
+- virtualenv -p /usr/bin/python3.4 /home/travis/cli-ve
+- source /home/travis/cli-ve/bin/activate
 - sudo pip install --upgrade --user awscli
 - sudo pip install --upgrade --user awsebcli
 # - export PATH=$PATH:~/.local/bin

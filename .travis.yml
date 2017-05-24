@@ -4,9 +4,9 @@ services:
 - docker
 before_install:
 - gem update --system
-- apt-get install -y python-pip
-- pip install --upgrade --user awscli
-- pip install --upgrade --user awsebcli
+- sudo apt-get install -y python-pip
+- sudo pip install --upgrade --user awscli
+- sudo pip install --upgrade --user awsebcli
 - aws configure set aws_access_key_id $AWS_ACCESS_KEY
 - aws configure set aws_secret_access_key $AWS_SECRET_KEY
 - aws configure set default.region $DEPLOYMENT_REGION

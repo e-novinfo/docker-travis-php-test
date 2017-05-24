@@ -9,12 +9,13 @@ before_install:
 - gem update --system
 - sudo apt-get install -y python3.4
 - sudo apt-get install --upgrade -y python-pip
-- export PATH=$PATH:~/.local/bin
-- source ~/.bash_profile
+- sudo pip install --user virtualenv
+- virtualenv -p /usr/bin/python3.4 ~/cli-ve
+- source ~/cli-ve/bin/activate
 - sudo pip install --upgrade --user awscli
 - sudo pip install --upgrade --user awsebcli
-- export PATH=$PATH:~/.local/bin
-- source ~/.bash_profile
+# - export PATH=$PATH:~/.local/bin
+# - source ~/.bash_profile
 - aws configure set aws_access_key_id $AWS_ACCESS_KEY
 - aws configure set aws_secret_access_key $AWS_SECRET_KEY
 - aws configure set default.region $DEPLOYMENT_REGION

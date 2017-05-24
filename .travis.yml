@@ -20,21 +20,21 @@ after_success:
 - bash <(curl -s https://codecov.io/bash)
 - if [ "$TRAVIS_BRANCH" == "master" ]; then docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
   docker tag $IMAGE_NAME $DOCKER_USERNAME/$DOCKER_REPOSITORY:$TRAVIS_BUILD_ID; docker push
-  $DOCKER_USERNAME/$DOCKER_REPOSITORY:$TRAVIS_BUILD_ID; fi
-before_deploy: 'echo ''### Deployment starts ###'''
-deploy:
-  provider: elasticbeanstalk
-  access_key_id: $AWS_ACCESS_KEY
-  secret_access_key: $AWS_SECRET_KEY
-  bucket_name: $BUCKET_NAME
-  app: $APP_NAME
-  env: $DEPLOYMENT_ENV
-  region: $DEPLOYMENT_REGION
-  script: ./scripts/upload_image_to_elastcbeanstalk.sh $TRAVIS_BUILD_ID
-  on:
-    branch: master
-after_deploy:
-- 'echo ''### Deployment succeeded ###'''
+  $DOCKER_USERNAME/$DOCKER_REPOSITORY:$TRAVIS_BUILD_ID; ./scripts/upload_image_to_elastcbeanstalk.sh $TRAVIS_BUILD_ID; fi
+#before_deploy: 'echo ''### Deployment starts ###'''
+#deploy:
+#  provider: elasticbeanstalk
+#  access_key_id: $AWS_ACCESS_KEY
+#  secret_access_key: $AWS_SECRET_KEY
+#  bucket_name: $BUCKET_NAME
+#  app: $APP_NAME
+#  env: $DEPLOYMENT_ENV
+#  region: $DEPLOYMENT_REGION
+#  script: ./scripts/upload_image_to_elastcbeanstalk.sh $TRAVIS_BUILD_ID
+#  on:
+#    branch: master
+#after_deploy:
+#- 'echo ''### Deployment succeeded ###'''
 notifications:
   email: false
 env:

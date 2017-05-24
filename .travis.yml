@@ -29,10 +29,11 @@ deploy:
   app: $APP_NAME
   env: $DEPLOYMENT_ENV
   region: $DEPLOYMENT_REGION
+  script: ./scripts/upload_image_to_elastcbeanstalk.sh $TRAVIS_BUILD_ID
   on:
     branch: master
 after_deploy:
-- sh ./scripts/upload_image_to_elastcbeanstalk.sh $TRAVIS_BUILD_ID
+- 'echo ''### Deployment succeeded ###'''
 notifications:
   email: false
 env:

@@ -17,7 +17,7 @@ echo "creating new Elastic Beanstalk version"
 aws elasticbeanstalk create-application-version \
 	--region=$DEPLOYMENT_REGION \
 	--application-name $APP_NAME \
-    --version-label $DOCKER_TAG \
+  --version-label $DOCKER_TAG \
 	--source-bundle S3Bucket=$DEPLOYMENT_BUCKET,S3Key=$BUCKET_DIRECTORY/$DOCKERRUN_FILE
 
 echo "updating Elastic Beanstalk environment"

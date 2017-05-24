@@ -19,6 +19,7 @@ before_install:
 - aws configure set aws_access_key_id $AWS_ACCESS_KEY
 - aws configure set aws_secret_access_key $AWS_SECRET_KEY
 - aws configure set default.region $DEPLOYMENT_REGION
+- aws configure list
 - cp docker-compose.production.yml docker-compose.yml
 - docker-compose build --no-cache
 - docker-compose up -d

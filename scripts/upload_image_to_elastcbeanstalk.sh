@@ -5,7 +5,7 @@ BUILD=$DOCKER_USERNAME/
 EB_BUCKET=$DEPLOYMENT_BUCKET/$BUCKET_DIRECTORY
 
 # Replace vars in the DOCKERRUN_FILE 
-cat "$DOCKERRUN_FILE.template" \
+cat "$DOCKERRUN_FILE" \
   | sed 's|<BUCKET>|'$EB_BUCKET'|g' \
   | sed 's|<IMAGE>|'$IMAGE_NAME'|g' \
   | sed 's|<TAG>|'$DOCKER_TAG'|g' \

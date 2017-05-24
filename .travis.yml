@@ -1,0 +1,43 @@
+sudo: required
+language: php
+services:
+- docker
+before_install:
+- cp docker-compose.production.yml docker-compose.yml
+- docker-compose build --no-cache
+- docker-compose up -d
+- docker ps -a
+before_script:
+- docker exec -it app composer self-update
+- docker exec -it app composer install --no-interaction
+script:
+- docker exec -it app vendor/bin/php-cs-fixer fix app --verbose
+- docker exec -it app vendor/bin/phpunit --coverage-clover=coverage.xml
+after_success:
+- docker-compose stop
+- bash <(curl -s https://codecov.io/bash)
+- if [ "$TRAVIS_BRANCH" == "master" ]; then docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+  docker tag $IMAGE_NAME $DOCKER_USERNAME/$DOCKER_REPOSITORY:$TRAVIS_TAG; docker push
+  $DOCKER_USERNAME/$DOCKER_REPOSITORY:$TRAVIS_TAG fi
+before_deploy: 'echo ''### Deployment starts ###'''
+deploy:
+  provider: elasticbeanstalk
+  access_key_id: "$AWS_ACCESS_KEY"
+  secret_access_key: "$AWS_SECRET_KEY"
+  bucket: "$BUCKET_NAME"
+  application: "$APP_NAME"
+  deployment-env: "$DEPLOYMENT_ENV"
+  region: "$DEPLOYMENT_REGION"
+  wait-until-deployed: true
+  on:
+    branch: master
+after_deploy:
+- sh ./scripts/upload_image_to_elastcbeanstalk.sh $TRAVIS_TAG
+notifications:
+  email: false
+env:
+  global:
+  - secure: ROnz4usxMjXPABUYiN9XbBBUyyUZFZdIpemppU4WOFbTAmwfM+HLQDs/Ir0wyJBLXqFTOE9E5s+r9mUWlsOcChgbnX58D7Q2JEdSJWhs9ZKkrWLevm8oPXQCkSVhXzhepc5snjU0Wa0OshJoirrSz+67Fg6j50oVp3hfYCtnvNxzqNxxXp22csjTZVZGchaGI1TexW+Bsjg9tuj2M9q8qT8DJNSAp+zhytk81s+/dUPU9Wb6Ku0jMd2auGoLFjotk8vW5vXyrUs7nh39H70gbVKzHj6R4KklB4xruF9AFNLR0SmmpoxgwOOmoR0sRLmLXWVvw/rcQ6GegTSazfM09KM0Sj37ArVzs+Hndfkk9fVhhD485AU278N+5RrOFxD0yF2Z4le6B6HDVDSj48K/y1bsSE6atUpoSmcay1rJzkvd4wVtzW/BJdCQLDrvwW4/SWvbWxRaNywtNapquz1YvXSE/onK+AHLnAQfnWMcgJ0eMkZZ/R2OkdLOWb4faLknWfXqU9zU0cIpT9cFTRm5db6AX1piy1aFhh8iwXsLfeemk1FWZWSbUeBM4KQ41+qnjZq9K9y1mHzTbD7b+vG9yDPNPpSHvqDsPZDqj4KizNbAs3cvYqwflwu0Zv5B1jCZYZHn9JkvFgMthS99fb6T86ZkhxKypu9gzk2BFORwOMc=
+  - secure: Bc4ofoSo9MQBUPpGHsXHOFPIs3pLVOCCoN3+oqB/65yRLCaVsZ201EwWpIqjnnsrtbDjfnD4dmnGd8DYWBxPBUxZzXnoY2sB3Wq7DcDV36TVgSYc+gwZqlh7rqFBGK+nFjcH5f52t+aRML9ScKhWcPjTBlnAOTC08+Gg7O3l8dEDVAw30EK3POxVj1isxkAcQbauhCE6uf0HAP5UusBFr7+zs7g66OsUHpBqpPOoQtFhg1JsSi7RZ9SFTovgLtkwVpytdxNoNV9FpWGRB5s5La1ZtURznUuJ43A4vzu59yVC6iS2ch+cfKdkuCmKgdlmBCN2U6hXMXR6PXeJrcMbzx6avQFw0ELVLutlPE1b9+isbnAhDHjfPZTNKYxIugdN8TqmwZ07tRS9zW9OzVlFE7sG23h0IWRMgYVKlYhr+XsnTlHQVfin0CjJGiQZWIvqF5pGWbV6rZfd5FygfXPrHIioDk4h920cy883b38sICRF4SDo4w79wj7F6gOf3Iwq7LYHCfxqFOaYMIPfoQMIzk36iZoG9y9JtYbIh+ydEGDDZFcAPkpdHDxhbcxBr6kPI142g7pWcOzpYQV+FzbivFNaAehhZkHfYZYKW9d2gjCuqCNvBDSMq9+KRjm3EA7C27EwLO49eVF3q2RyqiI6i7kyPS01cF00Op+8/Pmo+eM=
+  - secure: nSLEQd0nn1tZYxOX1WQDid+n+OtyR3t2NKV8Jln1F8QDp4aSnsexHHoMka++TRx8iTDSaadU/DY317G3au6pXvqfTOgSNP3NhoQ7x8ZNtiqXYEW6GEmhQvIG69egDSU4O5DN527h+vZVwEOSHkZBQ0APZn8ah5S9d9rOUS3p6pvDn+tfAaORKQJ18cOq6dud6c0T4A+uxXMdpvhd58bACx/7zHUSnYK80mUDT+29OXhmBY24ztUue7+y2/ZfbsZSqvCh2yzwGt0Y41RXkOXJLTewVB76fNM1FCPNuINQk8ijflW+hcTWosFXjbK7qsObZPsPkbd00eKeD1t9pnlwMmSQo1slJrH5WtQ/qEoHJimyyXCui7YNGwx4FWQ3FuMvduAvakWfITTiedeOG5e1A70NZqCb6EA65T9MmGRQdpkL12b3Ve7Rsy/uPz371ESKgUig6yLBQvnRuQeRKPjyEH1g+cG5XyG58U9RElw9KqhLg4IhXyEcnmz5lDWgE/nVFkyNU0RGkLiAFlSR1+mdompI2bsTYOxqN+Fpfkb7t+6tZ/7Ul8hYiq5hVDItafAjfbEOx6U3Hqc1NPzIbRs/pBc6+4ChqOuIBKEPIPRmqK8m3e2hnLu6oUF06SsmUjWrugK13hp09yCREhQF0D40CHrgfV9+wAXirXD3T3Td5S0=
+  - secure: g0KOeSbDpv5bYkdeFqba8PMdFcz7SN5co8mdKLtnVOdz5G8y1T/BGcgcz2iXuP8i5E00Os9Y/XCMA6Kj5nydOKNMEQS2leYSAU4vM7Vjzb39y+2eF8DBDjBibNLbjEM7G+zPFMzuXiNndQ+bDmHYrJJm3Ebe2e+xRLpQPxRnTjOJLiUR5Fzcr/a0ES8rkoq5k5Dx3usvaSLjk5lZ0y5a2wvFhOukJJaw1ConkW+3RXlk2I+vRU9rAUa9/DCtXrtIV6jgHXfAaF+txK8fC16PTu8brq+jtwm2l4bfDqhDNzGImrT6VBOXZ1iDroY6MnrYy082AEUWkCTcMFsmDQ/8kBouqMvZ/mo4fJkf6JOdCnDlVjVITibLenS43RFDv7paT65KvF34mSnK5d0bXv/+owqsM0eTGMz7rYY1zLNchIbrL9l0MSTioylsH8qJvEULqhLvf5G28EexUuIg7sG+jTjsmykdLIKfpq/ywK0ope8RXQA9T6daWqAQOjb5Supzp2RkmRJfKxlkuPacmjtDavuDwTNq9bs4iM/+q0XjzMSQUgE/2bnjkk6ADMFFiyjNLx6JNguhWJt6RHGPUVmhjYYs7XwaVlNUXexfrcPqO+fLXtt9WEMv8KAv4m4KwIHzD/bB5g+3BHpbkL0IRy4kOEKyFW9M908pHktsLhLQVWo=

@@ -12,8 +12,8 @@ before_install:
 - sudo pip install --user virtualenv
 - virtualenv my_py3 --python=/usr/bin/python3.4
 - source my_py3/bin/activate
-- sudo pip install --upgrade --user awscli
-- sudo pip install --upgrade --user awsebcli
+- pip install --upgrade --user awscli
+- pip install --upgrade --user awsebcli
 # - export PATH=$PATH:~/.local/bin
 # - source ~/.bash_profile
 - aws configure set aws_access_key_id $AWS_ACCESS_KEY

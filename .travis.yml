@@ -2,12 +2,13 @@ sudo: required
 language: php
 python:
 - "3.4"
+- "pypy-5.3.1"
 services:
 - docker
 before_install:
 - gem update --system
-- sudo apt-get install python3.4
-- sudo apt-get install -y python-pip
+- sudo apt-get install -y python3.4
+- sudo apt-get install --upgrade -y python-pip
 - sudo pip install --upgrade --user awscli
 - sudo pip install --upgrade --user awsebcli
 - export PATH=$PATH:~/.local/bin

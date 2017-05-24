@@ -9,6 +9,8 @@ before_install:
 - gem update --system
 - sudo apt-get install -y python3.4
 - sudo apt-get install --upgrade -y python-pip
+- export PATH=$PATH:~/.local/bin
+- source ~/.bash_profile
 - sudo pip install --upgrade --user awscli
 - sudo pip install --upgrade --user awsebcli
 - export PATH=$PATH:~/.local/bin

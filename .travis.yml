@@ -38,7 +38,7 @@ notifications:
   email: false
 env:
   global:
-  - APP_NAME=Sample-env-1
+  - APP_NAME=docker-travis-php-test 
   - DOCKER_USERNAME=enovinfi
   - DOCKER_REPOSITORY=docker-travis-php-test
   - IMAGE_NAME=dockertravisphptest_app

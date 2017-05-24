@@ -25,11 +25,10 @@ deploy:
   provider: elasticbeanstalk
   access_key_id: "$AWS_ACCESS_KEY"
   secret_access_key: "$AWS_SECRET_KEY"
-  bucket: "$BUCKET_NAME"
-  application: "$APP_NAME"
-  deployment-env: "$DEPLOYMENT_ENV"
+  bucket_name: "$BUCKET_NAME"
+  app: "$APP_NAME"
+  env: "$DEPLOYMENT_ENV"
   region: "$DEPLOYMENT_REGION"
-  wait-until-deployed: true
   on:
     branch: master
 after_deploy:

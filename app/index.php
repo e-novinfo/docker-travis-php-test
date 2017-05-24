@@ -1,6 +1,6 @@
 <?php
 
-use mlbors\SimpleApp\Controllers\SimpleController as SimpleController;
+use enovinfo\SimpleApp\Controllers\SimpleController as SimpleController;
 
 require_once 'app/index.php';
 

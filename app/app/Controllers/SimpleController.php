@@ -1,6 +1,6 @@
 <?php
 
-namespace mlbors\SimpleApp\Controllers;
+namespace enovinfo\SimpleApp\Controllers;
 
 class SimpleController
 {

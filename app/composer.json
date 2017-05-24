@@ -1,6 +1,6 @@
 {
-    "name": "mlbors/simple-travis-codevoc-styleci",
-    "description": "Simple project using Composer, PHPUnit, Travis, Codecov, PHP-CS-Fixer and StyleCI",
+    "name": "e-novinfo/docker-travis-php-test",
+    "description": "",
     "license": "MIT",
     "require": {
         "php": ">=5.6",
@@ -13,20 +13,20 @@
     },
     "autoload": {
         "psr-4": {
-            "mlbors\\SimpleApp\\": "app/"
+            "enovinfo\\SimpleApp\\": "app/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "mlbors\\SimpleApp\\Tests\\": "tests/"
+            "enovinfo\\SimpleApp\\Tests\\": "tests/"
         }
     },
-    "homepage": "https://github.com/mlbors/simple-travis-codevoc-styleci",
+    "homepage": "https://github.com/e-novinfo/docker-travis-php-test",
     "authors": [ 
         {
-            "name": "mlbors",
-            "email": "matyas.bors@gmail.com",
-            "homepage": "http://www.mlbors.com/"
+            "name": "e-novinfo",
+            "email": "webmaster@e-novinfo.ch",
+            "homepage": "http://www.e-novinfo.ch/"
 
         }
     ]

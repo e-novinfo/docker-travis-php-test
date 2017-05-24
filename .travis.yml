@@ -8,11 +8,12 @@ before_install:
 - docker-compose up -d
 - docker ps -a
 before_script:
-- docker-compose exec app composer self-update
-- docker-compose exec app composer install --no-interaction
+- docker run --name app --rm composer self-update
+- docker run --name app --rm composer install --no-interaction
+- docker run --name app --rm composer dump autoload -o 
 script:
-- docker-compose exec app vendor/bin/php-cs-fixer fix app --verbose
-- docker-compose exec app vendor/bin/phpunit --coverage-clover=coverage.xml
+- docker run --name app --rm vendor/bin/php-cs-fixer fix app --verbose
+- docker run --name app --rm vendor/bin/phpunit --coverage-clover=coverage.xml
 after_success:
 - docker-compose stop
 - bash <(curl -s https://codecov.io/bash)

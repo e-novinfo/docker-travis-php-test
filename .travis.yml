@@ -40,7 +40,7 @@ env:
   - APP_NAME=Sample-env-1
   - DOCKER_USERNAME=enovinfi
   - DOCKER_REPOSITORY=docker-travis-php-test
-  - IMAGE_NAME=dockerTravisPhpTest
+  - IMAGE_NAME=dockertravisphptest_app
   - BUCKET_NAME=docker-travis-php-test
   - DEPLOYMENT_REGION=us-east-2c
   - secure: ROnz4usxMjXPABUYiN9XbBBUyyUZFZdIpemppU4WOFbTAmwfM+HLQDs/Ir0wyJBLXqFTOE9E5s+r9mUWlsOcChgbnX58D7Q2JEdSJWhs9ZKkrWLevm8oPXQCkSVhXzhepc5snjU0Wa0OshJoirrSz+67Fg6j50oVp3hfYCtnvNxzqNxxXp22csjTZVZGchaGI1TexW+Bsjg9tuj2M9q8qT8DJNSAp+zhytk81s+/dUPU9Wb6Ku0jMd2auGoLFjotk8vW5vXyrUs7nh39H70gbVKzHj6R4KklB4xruF9AFNLR0SmmpoxgwOOmoR0sRLmLXWVvw/rcQ6GegTSazfM09KM0Sj37ArVzs+Hndfkk9fVhhD485AU278N+5RrOFxD0yF2Z4le6B6HDVDSj48K/y1bsSE6atUpoSmcay1rJzkvd4wVtzW/BJdCQLDrvwW4/SWvbWxRaNywtNapquz1YvXSE/onK+AHLnAQfnWMcgJ0eMkZZ/R2OkdLOWb4faLknWfXqU9zU0cIpT9cFTRm5db6AX1piy1aFhh8iwXsLfeemk1FWZWSbUeBM4KQ41+qnjZq9K9y1mHzTbD7b+vG9yDPNPpSHvqDsPZDqj4KizNbAs3cvYqwflwu0Zv5B1jCZYZHn9JkvFgMthS99fb6T86ZkhxKypu9gzk2BFORwOMc=

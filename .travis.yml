@@ -6,6 +6,7 @@ services:
 - docker
 before_install:
 - gem update --system
+- sudo apt-get install python3.4
 - sudo apt-get install -y python-pip
 - sudo pip install --upgrade --user awscli
 - sudo pip install --upgrade --user awsebcli

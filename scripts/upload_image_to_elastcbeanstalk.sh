@@ -34,7 +34,7 @@ cat "$DOCKERCFG" \
   | sed 's|<DOCKER_EMAIL>|'$DOCKER_EMAIL'|g' \
   > $DOCKERCFG
 
-aws s3 cp $DOCKERCFG s3://$EB_BUCKET/$DOCKERCFG
+aws s3 cp $DOCKERCFG s3://$EB_BUCKET/dockercfg
 rm $DOCKERCFG
 
 echo "Creating Dockerrun.aws.json file"

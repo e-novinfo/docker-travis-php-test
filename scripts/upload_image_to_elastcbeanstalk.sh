@@ -21,6 +21,7 @@ DEPLOYMENT_ENV_NAME=$7
 
 ls ~/
 ls ~/.docker/
+ls ~/.docker/config.json
 
 # Generate dockercfg
 DOCKER_AUTH=$( sed -n 's/.*"auth": "\(.*\)",/\1/p' $DOCKER_CONFIG)

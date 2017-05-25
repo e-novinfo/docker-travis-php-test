@@ -9,6 +9,7 @@ before_install:
 - gem update --system
 - sudo apt-get install -y python3.4
 - sudo apt-get install --upgrade -y python-pip
+- sudo apt-get install jq
 - sudo pip install --user virtualenv
 - virtualenv my_py3 --python=/usr/bin/python3.4
 - source my_py3/bin/activate

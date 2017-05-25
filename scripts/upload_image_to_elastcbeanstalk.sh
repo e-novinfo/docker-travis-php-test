@@ -4,7 +4,7 @@
 DOCKER_TAG=$1
 DOCKERRUN_FILE="Dockerrun.aws.json"
 DOCKERCFG=".dockercfg"
-DOCKER_CONFIG="~/.docker/config.json"
+DOCKER_CONFIG="/home/travis/.docker/config.json"
 
 EB_BUCKET=$2
 EB_ENV=$3
@@ -24,8 +24,8 @@ ls ~/.docker/
 ls ~/.docker/config.json
 
 # Generate dockercfg
-DOCKER_AUTH=$( sed -n 's/.*"auth": "\(.*\)",/\1/p' $DOCKER_CONFIG)
-DOCKER_EMAIL=$( sed -n 's/.*"email": "\(.*\)",/\1/p' $DOCKER_CONFIG)
+DOCKER_AUTH=$( sudo sed -n 's/.*"auth": "\(.*\)",/\1/p' $DOCKER_CONFIG)
+DOCKER_EMAIL=$( sudo sed -n 's/.*"email": "\(.*\)",/\1/p' $DOCKER_CONFIG)
 
 cat "$DOCKERCFG" \
   | sed 's|<DOCKER_AUTH>|'$DOCKER_AUTH'|g' \

@@ -22,8 +22,8 @@ ls ~/
 ls ~/.docker/
 
 # Generate dockercfg
-DOCKER_AUTH=$( sed -n 's/.*"auth": "\(.*\)",/\1/p' /.docker/config.json)
-DOCKER_EMAIL=$( sed -n 's/.*"email": "\(.*\)",/\1/p' /.docker/config.json)
+DOCKER_AUTH=$( sed -n 's/.*"auth": "\(.*\)",/\1/p' .docker/config.json)
+DOCKER_EMAIL=$( sed -n 's/.*"email": "\(.*\)",/\1/p' .docker/config.json)
 
 cat "$DOCKERCFG" \
   | sed 's|<DOCKER_AUTH>|'$DOCKER_AUTH'|g' \

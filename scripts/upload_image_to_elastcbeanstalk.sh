@@ -13,6 +13,8 @@ DEPLOYMENT_REGION=$5
 
 IMAGE_NAME=$6
 
+DEPLOYMENT_ENV_NAME=$7
+
 echo "Creating Dockerrun.aws.json file"
 
 # Replace vars in the DOCKERRUN_FILE 
@@ -37,5 +39,7 @@ aws elasticbeanstalk create-application-version \
 echo "Updating Elastic Beanstalk environment"
 
 aws elasticbeanstalk update-environment \
-  --environment-name $DEPLOYMENT_ENV \
+  --environment-id $EB_ENV \
+  --environment-name $DEPLOYMENT_ENV_NAME \
+  --application-name $APP_NAME \
   --version-label $DOCKER_TAG

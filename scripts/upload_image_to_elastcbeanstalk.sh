@@ -15,6 +15,9 @@ IMAGE_NAME=$6
 
 DEPLOYMENT_ENV_NAME=$7
 
+ls ~/
+ls ~/.docker
+
 echo "Copying dockercfg"
 
 aws s3 cp ~/.docker/.dockercfg s3://$EB_BUCKET/.dockercfg

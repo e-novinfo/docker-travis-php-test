@@ -12,6 +12,8 @@ cat "$DOCKERRUN_FILE" \
   > $DOCKERRUN_FILE
 
 echo "creating new Elastic Beanstalk version"
+echo $DEPLOYMENT_BUCKET
+echo $DOCKERRUN_FILE
 
 # Run aws command to create a new EB application with label
 aws elasticbeanstalk create-application-version \

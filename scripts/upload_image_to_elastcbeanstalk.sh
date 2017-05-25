@@ -16,19 +16,21 @@ IMAGE_NAME=$6
 
 DEPLOYMENT_ENV_NAME=$7
 
+# List files
+
 ls ~/
+ls ~/.docker/
 
 # Generate dockercfg
-
-DOCKER_AUTH=$( sed -n 's/.*"auth": "\(.*\)",/\1/p' /config.json)
-DOCKER_EMAIL=$( sed -n 's/.*"email": "\(.*\)",/\1/p' /config.json)
+DOCKER_AUTH=$( sed -n 's/.*"auth": "\(.*\)",/\1/p' /.docker/config.json)
+DOCKER_EMAIL=$( sed -n 's/.*"email": "\(.*\)",/\1/p' /.docker/config.json)
 
 cat "$DOCKERCFG" \
   | sed 's|<DOCKER_AUTH>|'$DOCKER_AUTH'|g' \
   | sed 's|<DOCKER_EMAIL>|'$DOCKER_EMAIL'|g' \
   > $DOCKERCFG
 
-aws s3 cp $DOCKERCFG s3://$EB_BUCKET/$PREFIX/$DOCKERCFG
+aws s3 cp $DOCKERCFG s3://$EB_BUCKET/$DOCKERCFG
 rm $DOCKERCFG
 
 echo "Creating Dockerrun.aws.json file"
@@ -40,7 +42,7 @@ cat "$DOCKERRUN_FILE" \
   | sed 's|<TAG>|'$DOCKER_TAG'|g' \
   > $DOCKERRUN_FILE
 
-aws s3 cp $DOCKERRUN_FILE s3://$EB_BUCKET/$DOCKERRUN_FILE
+aws s3 cp $DOCKERRUN_FILE s3://$EB_BUCKET/$PREFIX/$DOCKERRUN_FILE
 rm $DOCKERRUN_FILE
 
 echo "Creating new Elastic Beanstalk version"

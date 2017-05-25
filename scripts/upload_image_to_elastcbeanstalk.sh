@@ -17,7 +17,7 @@ DEPLOYMENT_ENV_NAME=$7
 
 echo "Copying dockercfg"
 
-aws s3 cp .dockercfg s3://$EB_BUCKET/dockercfg
+aws s3 cp dockercfg s3://$EB_BUCKET/dockercfg
 
 echo "Creating Dockerrun.aws.json file"
 
@@ -28,7 +28,7 @@ cat "$DOCKERRUN_FILE" \
   | sed 's|<TAG>|'$DOCKER_TAG'|g' \
   > $DOCKERRUN_FILE
 
-aws s3 cp $DOCKERRUN_FILE s3://$DEPLOYMENT_BUCKET/$PREFIX/$DOCKERRUN_FILE
+aws s3 cp $DOCKERRUN_FILE s3://$EB_BUCKET/$PREFIX/$DOCKERRUN_FILE
 rm $DOCKERRUN_FILE
 
 echo "Creating new Elastic Beanstalk version"

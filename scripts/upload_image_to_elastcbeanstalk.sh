@@ -17,6 +17,10 @@ IMAGE_NAME=$6
 
 DEPLOYMENT_ENV_NAME=$7
 
+DOCKER_USERNAME=$8
+DOCKER_REPOSITORY=$9
+DOCKER_IMAGE="$DOCKER_REPOSITORY/$DOCKER_USERNAME"
+
 # List files
 
 ls ~/
@@ -42,7 +46,7 @@ echo "Creating Dockerrun.aws.json file"
 # Replace vars in the DOCKERRUN_FILE 
 cat "$DOCKERRUN_FILE" \
   | sed 's|<BUCKET>|'$EB_BUCKET'|g' \
-  | sed 's|<IMAGE>|'$IMAGE_NAME'|g' \
+  | sed 's|<IMAGE>|'$DOCKER_IMAGE'|g' \
   | sed 's|<TAG>|'$DOCKER_TAG'|g' \
   > $DOCKERRUN_FILE
 

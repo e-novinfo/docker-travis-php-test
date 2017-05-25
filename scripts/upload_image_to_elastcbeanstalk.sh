@@ -15,6 +15,10 @@ IMAGE_NAME=$6
 
 DEPLOYMENT_ENV_NAME=$7
 
+echo "Copying dockercfg"
+
+aws s3 cp .dockercfg s3://$EB_BUCKET/dockercfg
+
 echo "Creating Dockerrun.aws.json file"
 
 # Replace vars in the DOCKERRUN_FILE 

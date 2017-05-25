@@ -17,7 +17,7 @@ DEPLOYMENT_ENV_NAME=$7
 
 echo "Copying dockercfg"
 
-aws s3 cp dockercfg s3://$EB_BUCKET/dockercfg
+aws s3 cp $HOME/.dockercfg s3://$EB_BUCKET/.dockercfg
 
 echo "Creating Dockerrun.aws.json file"
 

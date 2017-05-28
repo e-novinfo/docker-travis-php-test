@@ -10,7 +10,13 @@
      "host": {
        "sourcePath": "/storage"
      }
-   }
+   },
+   {
+      "name": "app",
+      "host": {
+        "sourcePath": "/app"
+      }
+    }
  ],
  "containerDefinitions": [
    {

@@ -102,7 +102,6 @@ typings/
 # dotenv environment variables file
 .env
 
-
 ### SublimeText ###
 # cache files for sublime text
 *.tmlanguage.cache

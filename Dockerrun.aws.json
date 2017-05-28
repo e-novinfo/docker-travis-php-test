@@ -21,7 +21,7 @@
      "mountPoints": [
        {
          "sourceVolume": "storage",
-         "containerPath": "/var/lib/mysql"
+         "containerPath": "/mysql"
        }
      ]
    },
@@ -39,7 +39,13 @@
      "links": [
        "db"
      ],
-     "mountPoints": []
+     "mountPoints": [
+        {
+          "sourceVolume": "app",
+          "containerPath": "/app",
+          "readOnly": true
+        }
+     ]
    }
  ]
 }

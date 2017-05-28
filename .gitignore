@@ -13,7 +13,7 @@ imports/*
 /backup/*
 /docker-compose.yml
 .Dockerrun.aws.json
-docker.config
+#docker.config
 
 ### macOS ###
 *.DS_Store

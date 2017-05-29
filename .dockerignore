@@ -2,5 +2,4 @@
 .git*
 backup/*
 bin/*
-docker/*
 documentation/*

@@ -66,7 +66,9 @@ aws elasticbeanstalk update-environment \
 
 echo "::::: Describing application :::::"
 
-aws elasticbeanstalk describe-application-versions --application-name my-app --version-label "v2"
+aws elasticbeanstalk describe-application-versions 
+  --application-name $APP_NAME
+  --version-label $DOCKER_TAG
 
 echo "::::: Describing environment :::::"
 

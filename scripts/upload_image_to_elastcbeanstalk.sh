@@ -66,6 +66,6 @@ aws elasticbeanstalk update-environment \
 
 echo "Validating Elastic Beanstalk environment"
 
-aws validate-configuration-settings \
+aws elasticbeanstalk validate-configuration-settings \
   --environment-name $DEPLOYMENT_ENV_NAME \
   --application-name $APP_NAME

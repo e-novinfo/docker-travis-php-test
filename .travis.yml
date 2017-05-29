@@ -15,8 +15,6 @@ before_install:
 - source my_py3/bin/activate
 - pip install --upgrade awscli
 - pip install --upgrade awsebcli
-# - export PATH=$PATH:~/.local/bin
-# - source ~/.bash_profile
 - aws configure set aws_access_key_id $AWS_ACCESS_KEY
 - aws configure set aws_secret_access_key $AWS_SECRET_KEY
 - aws configure set default.region $DEPLOYMENT_REGION
@@ -40,20 +38,6 @@ after_success:
   $DOCKER_USERNAME/$DOCKER_REPOSITORY:$TRAVIS_BUILD_ID;
   ./scripts/upload_image_to_elastcbeanstalk.sh $TRAVIS_BUILD_ID $DEPLOYMENT_BUCKET $DEPLOYMENT_ENV $APP_NAME $DEPLOYMENT_REGION $IMAGE_NAME $DEPLOYMENT_ENV_NAME $DOCKER_USERNAME $DOCKER_REPOSITORY;
   fi
-#before_deploy: 'echo ''### Deployment starts ###'''
-#deploy:
-#  provider: elasticbeanstalk
-#  access_key_id: $AWS_ACCESS_KEY
-#  secret_access_key: $AWS_SECRET_KEY
-#  bucket_name: $BUCKET_NAME
-#  app: $APP_NAME
-#  env: $DEPLOYMENT_ENV
-#  region: $DEPLOYMENT_REGION
-#  script: ./scripts/upload_image_to_elastcbeanstalk.sh $TRAVIS_BUILD_ID
-#  on:
-#    branch: master
-#after_deploy:
-#- 'echo ''### Deployment succeeded ###'''
 notifications:
   email: false
 env:

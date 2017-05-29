@@ -26,8 +26,11 @@ ls ~/.docker/config.json
 # Generate dockercfg
 echo "::::: Creating .dockercfg file :::::"
 
-DOCKER_AUTH=$(sudo sed -n 's/.*"auth": "\(.*\)",/\1/p' $DOCKER_CONFIG)
+#DOCKER_AUTH=$(sudo sed -n 's/.*"auth": "\(.*\)",/\1/p' $DOCKER_CONFIG)
 #DOCKER_EMAIL=$(sudo sed -n 's/.*"email": "\(.*\)",/\1/p' $DOCKER_CONFIG)
+
+DOCKER_AUTH=($(sudo jq -r '.auths.https://index.docker.io/v1/.auth' $DOCKER_CONFIG))
+echo DOCKER_AUTH
 
 sudo cat $DOCKER_CONFIG
 

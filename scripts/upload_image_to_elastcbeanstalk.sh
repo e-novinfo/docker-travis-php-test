@@ -70,6 +70,8 @@ aws elasticbeanstalk describe-application-versions
   --application-name $APP_NAME
   --version-label $DOCKER_TAG
 
+# Display info
+
 echo "::::: Describing environment :::::"
 
 aws elasticbeanstalk describe-environments 

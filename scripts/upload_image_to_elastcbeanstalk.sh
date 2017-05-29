@@ -63,3 +63,9 @@ aws elasticbeanstalk update-environment \
   --environment-name $DEPLOYMENT_ENV_NAME \
   --application-name $APP_NAME \
   --version-label $DOCKER_TAG
+
+echo "Validating Elastic Beanstalk environment"
+
+aws validate-configuration-settings \
+  --environment-name $DEPLOYMENT_ENV_NAME \
+  --application-name $APP_NAME

@@ -27,7 +27,7 @@ ls ~/.docker/config.json
 echo "::::: Creating .dockercfg file :::::"
 
 DOCKER_AUTH=$(sudo sed -n 's/.*"auth": "\(.*\)",/\1/p' $DOCKER_CONFIG)
-DOCKER_EMAIL=$(sudo sed -n 's/.*"email": "\(.*\)",/\1/p' $DOCKER_CONFIG)
+#DOCKER_EMAIL=$(sudo sed -n 's/.*"email": "\(.*\)",/\1/p' $DOCKER_CONFIG)
 
 sudo cat $DOCKER_CONFIG
 

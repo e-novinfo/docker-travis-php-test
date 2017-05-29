@@ -22,7 +22,7 @@ ls ~/.docker/
 ls ~/.docker/config.json
 
 # Generate dockercfg
-echo "Creating .dockercfg file"
+echo "::::: Creating .dockercfg file :::::"
 
 DOCKER_AUTH=$(sudo sed -n 's/.*"auth": "\(.*\)",/\1/p' $DOCKER_CONFIG)
 DOCKER_EMAIL=$(sudo sed -n 's/.*"email": "\(.*\)",/\1/p' $DOCKER_CONFIG)
@@ -35,7 +35,7 @@ cat "$DOCKERCFG" \
 aws s3 cp $DOCKERCFG s3://$EB_BUCKET/dockercfg
 rm $DOCKERCFG
 
-echo "Creating Dockerrun.aws.json file"
+echo "::::: Creating Dockerrun.aws.json file :::::"
 
 # Replace vars in the DOCKERRUN_FILE 
 cat "$DOCKERRUN_FILE" \
@@ -47,7 +47,7 @@ cat "$DOCKERRUN_FILE" \
 aws s3 cp $DOCKERRUN_FILE s3://$EB_BUCKET/$PREFIX/$DOCKERRUN_FILE
 rm $DOCKERRUN_FILE
 
-echo "Creating new Elastic Beanstalk version"
+echo "::::: Creating new Elastic Beanstalk version :::::"
 
 # Run aws command to create a new EB application with label
 aws elasticbeanstalk create-application-version \
@@ -56,7 +56,7 @@ aws elasticbeanstalk create-application-version \
   --version-label $DOCKER_TAG \
 	--source-bundle S3Bucket=$EB_BUCKET,S3Key=$PREFIX/$DOCKERRUN_FILE
 
-echo "Updating Elastic Beanstalk environment"
+echo "::::: Updating Elastic Beanstalk environment :::::"
 
 aws elasticbeanstalk update-environment \
   --environment-id $EB_ENV \
@@ -64,35 +64,39 @@ aws elasticbeanstalk update-environment \
   --application-name $APP_NAME \
   --version-label $DOCKER_TAG
 
-echo "Describing environment"
+echo "::::: Describing application :::::"
+
+aws elasticbeanstalk describe-application-versions --application-name my-app --version-label "v2"
+
+echo "::::: Describing environment :::::"
 
 aws elasticbeanstalk describe-environments 
   --environment-names $DEPLOYMENT_ENV_NAME
 
-echo "Describing application"
+echo "::::: Describing application :::::"
 
 aws elasticbeanstalk describe-applications \
   --application-names $APP_NAME
 
-echo "Describing environment settings"
+echo "::::: Describing environment settings :::::"
 
 aws elasticbeanstalk describe-configuration-settings \
   --environment-name $DEPLOYMENT_ENV_NAME \
   --application-name $APP_NAME
 
-echo "Describing environment health"
+echo "::::: Describing environment health :::::"
 
 aws elasticbeanstalk describe-environment-health \ 
   --environment-name $DEPLOYMENT_ENV_NAME \
   --attribute-names All
 
-echo "Describing configuration"
+echo "::::: Describing configuration :::::"
 
 aws elasticbeanstalk describe-configuration-options \ 
   --environment-name $DEPLOYMENT_ENV_NAME \
   --application-name $APP_NAME
 
-echo "Describing environment events"
+echo "::::: Describing environment events :::::"
 
 aws elasticbeanstalk describe-events
   --environment-name $DEPLOYMENT_ENV_NAME \

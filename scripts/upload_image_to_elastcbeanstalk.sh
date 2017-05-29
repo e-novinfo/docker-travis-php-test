@@ -32,6 +32,7 @@ DOCKER_AUTH=$(sudo sed -n 's/.*"auth": "\(.*\)",/\1/p' $DOCKER_CONFIG)
 sudo cat $DOCKER_CONFIG
 
 cat "$DOCKERCFG" \
+  | sed 's|<DOCKER_AUTH>|'$DOCKER_AUTH'|g' \
   | sed 's|<DOCKER_USERNAME>|'$DOCKER_USERNAME'|g' \
   | sed 's|<DOCKER_PASSWORD>|'$DOCKER_PASSWORD'|g' \
   | sed 's|<DOCKER_EMAIL>|'$DOCKER_EMAIL'|g' \

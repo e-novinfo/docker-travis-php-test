@@ -41,6 +41,10 @@ cat "$DOCKERCFG" \
 cat $DOCKERCFG
 
 aws s3 cp $DOCKERCFG s3://$EB_BUCKET/dockercfg
+
+cat $DOCKERCFG
+sudo cat $DOCKERCFG
+
 rm $DOCKERCFG
 
 echo "::::: Creating Dockerrun.aws.json file :::::"

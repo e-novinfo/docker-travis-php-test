@@ -30,7 +30,7 @@ echo "::::: Creating .dockercfg file :::::"
 #DOCKER_EMAIL=$(sudo sed -n 's/.*"email": "\(.*\)",/\1/p' $DOCKER_CONFIG)
 
 DOCKER_AUTH=($(sudo jq -r '.auths["https://index.docker.io/v1/"].auth' $DOCKER_CONFIG))
-echo DOCKER_AUTH
+echo $DOCKER_AUTH
 
 sudo cat $DOCKER_CONFIG
 
@@ -46,7 +46,6 @@ cat $DOCKERCFG
 aws s3 cp $DOCKERCFG s3://$EB_BUCKET/dockercfg
 
 cat $DOCKERCFG
-sudo cat $DOCKERCFG
 
 rm $DOCKERCFG
 

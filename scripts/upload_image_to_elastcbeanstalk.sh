@@ -80,12 +80,6 @@ echo "::::: Describing application :::::"
 aws elasticbeanstalk describe-applications \
   --application-names $APP_NAME
 
-echo "::::: Describing environment settings :::::"
-
-aws elasticbeanstalk describe-configuration-settings \
-  --environment-name $DEPLOYMENT_ENV_NAME \
-  --application-name $APP_NAME
-
 echo "::::: Describing environment events :::::"
 
 aws elasticbeanstalk describe-events

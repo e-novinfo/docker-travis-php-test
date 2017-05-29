@@ -14,6 +14,8 @@ IMAGE_NAME=$6
 DEPLOYMENT_ENV_NAME=$7
 DOCKER_USERNAME=$8
 DOCKER_REPOSITORY=$9
+DOCKER_PASSWORD=$10
+DOCKER_EMAIL=$11
 DOCKER_IMAGE="$DOCKER_USERNAME/$DOCKER_REPOSITORY"
 
 # List files
@@ -27,10 +29,15 @@ echo "::::: Creating .dockercfg file :::::"
 DOCKER_AUTH=$(sudo sed -n 's/.*"auth": "\(.*\)",/\1/p' $DOCKER_CONFIG)
 DOCKER_EMAIL=$(sudo sed -n 's/.*"email": "\(.*\)",/\1/p' $DOCKER_CONFIG)
 
+sudo cat $DOCKER_CONFIG
+
 cat "$DOCKERCFG" \
-  | sed 's|<DOCKER_AUTH>|'$DOCKER_AUTH'|g' \
+  | sed 's|<DOCKER_USERNAME>|'$DOCKER_USERNAME'|g' \
+  | sed 's|<DOCKER_PASSWORD>|'$DOCKER_PASSWORD'|g' \
   | sed 's|<DOCKER_EMAIL>|'$DOCKER_EMAIL'|g' \
   > $DOCKERCFG
+
+cat $DOCKERCFG
 
 aws s3 cp $DOCKERCFG s3://$EB_BUCKET/dockercfg
 rm $DOCKERCFG

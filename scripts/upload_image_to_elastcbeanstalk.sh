@@ -86,18 +86,6 @@ aws elasticbeanstalk describe-configuration-settings \
   --environment-name $DEPLOYMENT_ENV_NAME \
   --application-name $APP_NAME
 
-echo "::::: Describing environment health :::::"
-
-aws elasticbeanstalk describe-environment-health \ 
-  --environment-name $DEPLOYMENT_ENV_NAME \
-  --attribute-names All
-
-echo "::::: Describing configuration :::::"
-
-aws elasticbeanstalk describe-configuration-options \ 
-  --environment-name $DEPLOYMENT_ENV_NAME \
-  --application-name $APP_NAME
-
 echo "::::: Describing environment events :::::"
 
 aws elasticbeanstalk describe-events

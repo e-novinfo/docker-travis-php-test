@@ -8,13 +8,13 @@
    {
      "name": "storage",
      "host": {
-       "sourcePath": "/storage"
+       "sourcePath": "/var/data"
      }
    },
    {
       "name": "app",
       "host": {
-        "sourcePath": "/app"
+        "sourcePath": "/var/app/current/app"
       }
     }
  ],
@@ -27,7 +27,7 @@
      "mountPoints": [
        {
          "sourceVolume": "storage",
-         "containerPath": "/mysql"
+         "containerPath": "/var/lib/mysql"
        }
      ]
    },
@@ -48,7 +48,7 @@
      "mountPoints": [
         {
           "sourceVolume": "app",
-          "containerPath": "/app",
+          "containerPath": "/var/www/html",
           "readOnly": true
         }
      ]

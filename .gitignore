@@ -13,6 +13,7 @@ imports/*
 /backup/*
 /docker-compose.yml
 .Dockerrun.aws.json
+.elasticbeanstalk
 #docker.config
 
 ### macOS ###
@@ -450,3 +451,7 @@ __pycache__/
 *.xsd.cs
 
 # End of https://www.gitignore.io/api/node,macos,windows,sublimetext,visualstudio,visualstudiocode
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

@@ -6,12 +6,6 @@
  },
  "volumes": [
    {
-     "name": "storage",
-     "host": {
-       "sourcePath": "/var/data"
-     }
-   },
-   {
       "name": "app",
       "host": {
         "sourcePath": "/var/app/current/app"
@@ -19,18 +13,6 @@
     }
  ],
  "containerDefinitions": [
-   {
-     "name": "db",
-     "image": "mysql:5.6",
-     "essential": true,
-     "memory": 256,
-     "mountPoints": [
-       {
-         "sourceVolume": "storage",
-         "containerPath": "/var/lib/mysql"
-       }
-     ]
-   },
    {
      "name": "app",
      "image": "<IMAGE>:<TAG>",
@@ -41,9 +23,6 @@
          "hostPort": 80,
          "containerPort": 80
        }
-     ],
-     "links": [
-       "db"
      ],
      "mountPoints": [
         {

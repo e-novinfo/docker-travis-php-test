@@ -34,7 +34,7 @@
    {
      "name": "app",
      "image": "<IMAGE>:<TAG>",
-     "essential": false,
+     "essential": true,
      "memory": 128,
      "portMappings": [
        {

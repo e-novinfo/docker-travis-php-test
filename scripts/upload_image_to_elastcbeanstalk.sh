@@ -103,5 +103,5 @@ aws elasticbeanstalk describe-events
 
 echo "::::: Try EB :::::"
 
-eb init --profile enovinfo
+eb init --profile profile
 eb local run

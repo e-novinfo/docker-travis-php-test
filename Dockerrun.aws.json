@@ -42,7 +42,6 @@
          "containerPort": 80
        }
      ],
-     "command": ["/bin/bash"],
      "links": [
        "db"
      ],

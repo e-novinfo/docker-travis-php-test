@@ -103,5 +103,5 @@ aws elasticbeanstalk describe-events
 
 echo "::::: Try EB :::::"
 
-eb init --profile profile
+eb init --profile default
 eb local run

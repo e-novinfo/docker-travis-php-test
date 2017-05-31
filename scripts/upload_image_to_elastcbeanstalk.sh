@@ -105,5 +105,5 @@ aws elasticbeanstalk describe-events
 
 echo "::::: Try EB :::::"
 
-eb init docker-travis-php-test --region us-east-2 --profile default
+yes N | eb init docker-travis-php-test --region us-east-2 --profile default
 eb local run

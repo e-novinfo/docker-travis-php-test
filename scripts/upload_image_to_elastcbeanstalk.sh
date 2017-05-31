@@ -100,3 +100,8 @@ echo "::::: Describing environment events :::::"
 
 aws elasticbeanstalk describe-events
   --environment-name $DEPLOYMENT_ENV_NAME \
+
+echo "::::: Try EB :::::"
+
+eb init --profile enovinfo
+eb local run

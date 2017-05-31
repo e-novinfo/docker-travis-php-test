@@ -22,7 +22,7 @@
    {
      "name": "db",
      "image": "mysql:5.6",
-     "essential": false,
+     "essential": true,
      "memory": 256,
      "mountPoints": [
        {
@@ -42,6 +42,7 @@
          "containerPort": 80
        }
      ],
+     "command": ["/bin/bash"],
      "links": [
        "db"
      ],

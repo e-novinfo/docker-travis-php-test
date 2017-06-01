@@ -41,12 +41,11 @@ cat "$DOCKERCFG" \
   | sed 's|<DOCKER_EMAIL>|'$DOCKER_EMAIL'|g' \
   > $DOCKERCFG
 
+sleep 5
+
 cat $DOCKERCFG
 
 aws s3 cp $DOCKERCFG s3://$EB_BUCKET/dockercfg
-
-cat $DOCKERCFG
-
 rm $DOCKERCFG
 
 echo "::::: Creating Dockerrun.aws.json file :::::"
@@ -57,6 +56,10 @@ cat "$DOCKERRUN_FILE" \
   | sed 's|<IMAGE>|'$DOCKER_IMAGE'|g' \
   | sed 's|<TAG>|'$DOCKER_TAG'|g' \
   > $DOCKERRUN_FILE
+
+sleep 5
+
+cat $DOCKERRUN_FILE
 
 aws s3 cp $DOCKERRUN_FILE s3://$EB_BUCKET/$PREFIX/$DOCKERRUN_FILE
 rm $DOCKERRUN_FILE

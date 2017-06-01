@@ -2,7 +2,7 @@
  "AWSEBDockerrunVersion": 2,
  "authentication": {
    "bucket": "<BUCKET>",
-   "key": "dockercfg"
+   "key": ".dockercfg"
  },
  "volumes": [
    {

@@ -26,11 +26,11 @@ ls ~/.docker/config.json
 # Generate dockercfg
 echo "::::: Creating .dockercfg file :::::"
 
-#DOCKER_AUTH=$(sudo sed -n 's/.*"auth": "\(.*\)",/\1/p' $DOCKER_CONFIG)
-#DOCKER_EMAIL=$(sudo sed -n 's/.*"email": "\(.*\)",/\1/p' $DOCKER_CONFIG)
-
 DOCKER_AUTH=($(sudo jq -r '.auths["https://index.docker.io/v1/"].auth' $DOCKER_CONFIG))
+
+echo "//Actual .docker/config.json"
 echo $DOCKER_AUTH
+echo " "
 
 sudo cat $DOCKER_CONFIG
 
@@ -41,11 +41,13 @@ cat "$DOCKERCFG" \
   | sed 's|<DOCKER_EMAIL>|'$DOCKER_EMAIL'|g' \
   > $DOCKERCFG
 
-sleep 5
+sleep 10
 
+echo "//Generated .dockerckfg"
 cat $DOCKERCFG
+echo " "
 
-aws s3 cp $DOCKERCFG s3://$EB_BUCKET/dockercfg
+aws s3 cp $DOCKERCFG s3://$EB_BUCKET/.dockercfg
 rm $DOCKERCFG
 
 echo "::::: Creating Dockerrun.aws.json file :::::"
@@ -57,12 +59,16 @@ cat "$DOCKERRUN_FILE" \
   | sed 's|<TAG>|'$DOCKER_TAG'|g' \
   > $DOCKERRUN_FILE
 
-sleep 5
+sleep 10
 
+echo "//Generated Dockerrun.aws.json"
 cat $DOCKERRUN_FILE
+echo " "
 
 aws s3 cp $DOCKERRUN_FILE s3://$EB_BUCKET/$PREFIX/$DOCKERRUN_FILE
 rm $DOCKERRUN_FILE
+
+sleep 10
 
 echo "::::: Creating new Elastic Beanstalk version :::::"
 
@@ -72,6 +78,8 @@ aws elasticbeanstalk create-application-version \
 	--application-name $APP_NAME \
   --version-label $DOCKER_TAG \
 	--source-bundle S3Bucket=$EB_BUCKET,S3Key=$PREFIX/$DOCKERRUN_FILE
+  
+sleep 10  
 
 echo "::::: Updating Elastic Beanstalk environment :::::"
 

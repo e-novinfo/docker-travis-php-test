@@ -12,7 +12,6 @@ imports/*
 !imports/.gitkeep
 /backup/*
 /docker-compose.yml
-.Dockerrun.aws.json
 .elasticbeanstalk
 #docker.config
 

@@ -21,10 +21,7 @@ before_install:
 - aws configure set metadata_service_timeout 1200
 - aws configure set metadata_service_num_attempts 3
 - aws configure list
-- composer self-update
-- composer install --working-dir ./app --no-interaction
 - cp docker-compose.production.yml docker-compose.yml
-- docker-compose build --no-cache
 - docker-compose up -d
 - docker ps -a
 before_script:
@@ -36,6 +33,7 @@ script:
 - docker-compose exec -T app vendor/bin/phpunit --coverage-clover=coverage.xml
 after_success:
 - docker-compose stop
+- docker-compose build --no-cache
 - bash <(curl -s https://codecov.io/bash)
 - if [ "$TRAVIS_BRANCH" == "master" ]; then docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
   docker tag $IMAGE_NAME $DOCKER_USERNAME/$DOCKER_REPOSITORY:$TRAVIS_BUILD_ID; docker push

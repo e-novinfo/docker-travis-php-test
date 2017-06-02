@@ -18,23 +18,10 @@ DOCKER_PASSWORD=${10}
 DOCKER_EMAIL=${11}
 DOCKER_IMAGE="$DOCKER_USERNAME/$DOCKER_REPOSITORY"
 
-# List files
-ls ~/
-ls ~/.docker/
-ls ~/.docker/config.json
-
 # Generate dockercfg
 echo "::::: Creating .dockercfg file :::::"
 
 DOCKER_AUTH=($(sudo jq -r '.auths["https://index.docker.io/v1/"].auth' $DOCKER_CONFIG))
-
-echo "//Auth value"
-echo $DOCKER_AUTH
-printf "\n"
-
-echo "//Actual .docker/config.json"
-sudo cat $DOCKER_CONFIG
-printf "\n"
 
 cat "$DOCKERCFG" \
   | sed 's|<DOCKER_AUTH>|'$DOCKER_AUTH'|g' \
@@ -45,11 +32,8 @@ cat "$DOCKERCFG" \
 
 sleep 30
 
-echo "//Generated .dockerckfg"
-cat $DOCKERCFG
-printf "\n"
-
 aws s3 cp $DOCKERCFG s3://$EB_BUCKET/.dockercfg
+
 sleep 30
 
 echo "::::: Creating Dockerrun.aws.json file :::::"
@@ -62,10 +46,6 @@ cat "$DOCKERRUN_FILE" \
   > $DOCKERRUN_FILE
 
 sleep 30
-
-echo "//Generated Dockerrun.aws.json"
-cat $DOCKERRUN_FILE
-printf "\n"
 
 aws s3 cp $DOCKERRUN_FILE s3://$EB_BUCKET/$PREFIX/$DOCKERRUN_FILE
 sleep 30
@@ -95,25 +75,4 @@ sleep 30
 rm $DOCKERCFG
 rm $DOCKERRUN_FILE
 
-echo "::::: Describing application :::::"
-
-aws elasticbeanstalk describe-application-versions 
-  --application-name $APP_NAME
-  --version-label $DOCKER_TAG
-
-# Display info
-
-echo "::::: Describing environment :::::"
-
-aws elasticbeanstalk describe-environments 
-  --environment-names $DEPLOYMENT_ENV_NAME
-
-echo "::::: Describing application :::::"
-
-aws elasticbeanstalk describe-applications \
-  --application-names $APP_NAME
-
-echo "::::: Describing environment events :::::"
-
-aws elasticbeanstalk describe-events
-  --environment-name $DEPLOYMENT_ENV_NAME \
+echo "::::: Process has ended :::::"

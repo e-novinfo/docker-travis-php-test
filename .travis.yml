@@ -22,7 +22,7 @@ before_install:
 - aws configure set metadata_service_num_attempts 3
 - aws configure list
 - composer self-update
-- composer install --working-dir /app --no-interaction
+- composer install --working-dir ./app --no-interaction
 - cp docker-compose.production.yml docker-compose.yml
 - docker-compose build --no-cache
 - docker-compose up -d

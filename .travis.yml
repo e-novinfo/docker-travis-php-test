@@ -23,6 +23,7 @@ before_install:
 - aws configure list
 - composer self-update
 - composer install --no-interaction
+- composer dump-autoload -o 
 - cp docker-compose.production.yml docker-compose.yml
 - docker-compose build --no-cache
 - docker-compose up -d

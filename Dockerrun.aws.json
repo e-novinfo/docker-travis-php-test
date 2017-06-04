@@ -64,7 +64,7 @@
      "mountPoints": [
         {
           "sourceVolume": "app",
-          "containerPath": "/app",
+          "containerPath": "/var/www/html",
           "readOnly": true
         }
      ]

@@ -70,6 +70,6 @@ WORKDIR /app/
 # Copy app on volume/workdir
 COPY ./app/. /app/
 
-EXPOSE 80 
-EXPOSE 443 
-CMD ["supervisord"]
+#EXPOSE 80 
+#EXPOSE 443 
+#CMD ["supervisord"]
